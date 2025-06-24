@@ -36,6 +36,9 @@ dependencies = [
   "docstring_parser>=0.16",
   "joblib>=1.5.1",
   "tqdm>=4.67.1",
+  "fastapi>=0.115.13",
+  "openai>=1.91.0",
+  "ollama>=0.5.1",
 ]
 
 [project.scripts]

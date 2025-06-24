@@ -1,5 +1,7 @@
 from agno.models.anthropic.claude import Claude
 from agno.models.google.gemini import Gemini
+from agno.models.openai import OpenAIChat
+from agno.models.ollama import Ollama
 from agno.playground.playground import Playground
 from agno.playground.serve import serve_playground_app
 from sensai.util import logging
@@ -16,7 +18,9 @@ if __name__ == "__main__":
 
 # Define the model to use (see Agno documentation for supported models; these are just examples)
 # model = Claude(id="claude-3-7-sonnet-20250219")
-model = Gemini(id="gemini-2.5-pro-exp-03-25")
+# model = Gemini(id="gemini-2.5-pro-exp-03-25")
+# model = OpenAIChat(id="gpt-4o")
+model = Ollama(id="qwen2.5:7b")
 
 app = Playground(agents=[SerenaAgnoAgentProvider.get_agent(model)]).get_app()
 
