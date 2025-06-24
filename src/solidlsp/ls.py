@@ -1168,12 +1168,18 @@ class SolidLanguageServer(ABC):
             )
             raise LanguageServerException("Language Server not started")
         rel_file_paths = []
-        for root, dirs, files in os.walk(self.repository_root_path):
+        for root, dirs, files in os.walk(self.repository_root_path, followlinks=True):
             dirs[:] = [d for d in dirs if not self.is_ignored_path(os.path.join(root, d))]
             for file in files:
                 rel_file_path = os.path.relpath(os.path.join(root, file), start=self.repository_root_path)
-                if not self.is_ignored_path(rel_file_path):
-                    rel_file_paths.append(rel_file_path)
+                try:
+                    if not self.is_ignored_path(rel_file_path):
+                        rel_file_paths.append(rel_file_path)
+                except FileNotFoundError:
+                    self.logger.log(
+                        f"File {rel_file_path} not found (possibly due it being a symlink), skipping it in request_parsed_files",
+                        logging.WARNING,
+                    )
         return rel_file_paths
 
     def search_files_for_pattern(
