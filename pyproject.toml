@@ -39,6 +39,7 @@ dependencies = [
   "fastapi>=0.115.13",
   "openai>=1.91.0",
   "ollama>=0.5.1",
+  "a2a-sdk>=0.2.9",
 ]
 
 [project.scripts]
