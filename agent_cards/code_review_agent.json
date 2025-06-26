@@ -1,0 +1,130 @@
+{
+    "name": "Code Review Assistant",
+    "description": "An intelligent agent focused on code review, providing guidance to fix bugs, and analyzing the impact of Pull Requests by identifying affected features and classes. This agent reads and analyzes code, but does not perform direct code modifications.",
+    "url": "http://localhost:10101/",
+    "provider": null,
+    "version": "1.0.0",
+    "documentationUrl": "https://github.com/oraios/serena/blob/main/README.md",
+    "authentication": {
+        "credentials": null,
+        "schemes": [
+            "public"
+        ]
+    },
+    "capabilities": {
+        "streaming": "True",
+        "pushNotifications": "True",
+        "stateTransitionHistory": "False"
+    },
+    "defaultInputModes": [
+        "text",
+        "text/plain"
+    ],
+    "defaultOutputModes": [
+        "text",
+        "text/plain",
+        "application/json"
+    ],
+    "skills": [
+        {
+            "id": "read_file",
+            "name": "Read File",
+            "description": "Reads a file within the project directory to review its content.",
+            "tags": ["code-review", "file-system", "read-only"],
+            "examples": [
+                "Read the content of 'src/main.py'",
+                "Can you show me the implementation in 'utils/parser.js'?"
+            ]
+        },
+        {
+            "id": "list_dir",
+            "name": "List Directory",
+            "description": "Lists files and directories to understand the project structure.",
+            "tags": ["file-system", "navigation", "read-only"],
+            "examples": [
+                "List all files in the 'src/components' directory",
+                "Show me the project structure."
+            ]
+        },
+        {
+            "id": "find_symbol",
+            "name": "Find Symbol",
+            "description": "Performs a global or local search for symbols to locate specific functions, classes, or variables.",
+            "tags": ["code-analysis", "navigation", "search"],
+            "examples": [
+                "Find the definition of the 'User' class",
+                "Where is the 'calculateTotal' function implemented?"
+            ]
+        },
+        {
+            "id": "get_symbols_overview",
+            "name": "Get Symbols Overview",
+            "description": "Gets an overview of the top-level symbols defined in a given file or directory, useful for a high-level understanding.",
+            "tags": ["code-analysis", "summarization", "read-only"],
+            "examples": [
+                "Give me an overview of symbols in 'api/routes.ts'",
+                "What are the main classes defined in the 'models' directory?"
+            ]
+        },
+        {
+            "id": "find_referencing_symbols",
+            "name": "Find Referencing Symbols",
+            "description": "Finds symbols that reference a given symbol to understand its usage and impact.",
+            "tags": ["impact-analysis", "code-review", "dependencies"],
+            "examples": [
+                "Find all references to the 'calculatePrice' function",
+                "Which classes use the 'DatabaseConnection' module?"
+            ]
+        },
+        {
+            "id": "find_referencing_code_snippets",
+            "name": "Find Referencing Code Snippets",
+            "description": "Finds code snippets where a given symbol is referenced, providing context for its usage.",
+            "tags": ["impact-analysis", "code-review", "dependencies"],
+            "examples": [
+                "Show me how 'User.save()' is being used in the project.",
+                "Find all call sites for the 'API.fetch' method."
+            ]
+        },
+        {
+            "id": "search_for_pattern",
+            "name": "Search For Pattern",
+            "description": "Performs a pattern search within the project, useful for finding specific code constructs or comments.",
+            "tags": ["search", "code-review"],
+            "examples": [
+                "Search for the regex pattern 'TODO:.*'",
+                "Find all occurrences of 'unsafe_variable' in the codebase."
+            ]
+        },
+        {
+            "id": "summarize_changes",
+            "name": "Summarize Changes",
+            "description": "Provides instructions to summarize the changes made to the codebase, ideal for PR descriptions.",
+            "tags": ["pr-review", "summarization"],
+            "examples": [
+                "Summarize the changes in the latest commit.",
+                "What are the main modifications in this branch?"
+            ]
+        },
+        {
+            "id": "write_memory",
+            "name": "Write Memory",
+            "description": "Saves findings or analysis into a named memory for future reference during a review session.",
+            "tags": ["context", "memory"],
+            "examples": [
+                "Save the list of impacted files under the name 'pr-impact-analysis'.",
+                "Remember that 'config.json' is deprecated."
+            ]
+        },
+        {
+            "id": "read_memory",
+            "name": "Read Memory",
+            "description": "Reads a named memory to recall previous findings or context.",
+            "tags": ["context", "memory"],
+            "examples": [
+                "What was the result of the 'pr-impact-analysis'?",
+                "Recall the notes I made about the deprecated components."
+            ]
+        }
+    ]
+}

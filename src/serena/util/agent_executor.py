@@ -37,7 +37,7 @@ class GenericAgentExecutor(AgentExecutor):
         context: RequestContext,
         event_queue: EventQueue,
     ) -> None:
-        logger.info(f'Executing agent {self.agent.agent_name}')
+        logger.info(f'Executing agent {self.agent.name}')
         error = self._validate_request(context)
         if error:
             raise ServerError(error=InvalidParamsError())
@@ -57,7 +57,7 @@ class GenericAgentExecutor(AgentExecutor):
                 await updater.update_status(
                     TaskState.working,
                     new_agent_text_message(
-                        event.rool.tool_name,
+                        event.tool.tool_name,
                         task.contextId,
                         task.id
                     ),
@@ -67,7 +67,7 @@ class GenericAgentExecutor(AgentExecutor):
                 await updater.update_status(
                     TaskState.working,
                     new_agent_text_message(
-                        event.rool.result,
+                        event.tool.result,
                         task.contextId,
                         task.id
                     ),
